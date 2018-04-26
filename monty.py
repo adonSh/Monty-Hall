@@ -15,10 +15,7 @@ def pickadoor(doors):
 # doors is a tuple (initial choice, other door), switchornot is a boolean
 # returns true if the chosen door is a winner
 def switchornot(doors, switch):
-    if switch:
-        return doors[1]
-    else:
-        return doors[0]
+    return doors[1] if switch else doors[0]
 
 # process command-line args
 # returns arguments object

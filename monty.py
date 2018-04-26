@@ -59,5 +59,5 @@ for _ in range(int(args.tries)):
     else:
         losses += 1
 
-print("Wins: " + str(wins))
-print("Losses: " + str(losses))
+print('Wins: ' + str(wins))
+print('Losses: ' + str(losses))

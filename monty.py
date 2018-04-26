@@ -4,6 +4,7 @@ import argparse
 
 ###### DEFINITIONS ############
 
+# the doors could just be booleans but for now this preserves uniqueness
 class Door:
     def __init__(self, win):
         self._win = win
@@ -23,14 +24,15 @@ def pickadoor(doors):
 
     return (door, doors[0])
 
-# doors is a tuple (initial choice, other door), switch is a boolean
+# doors is a tuple (initial choice, other door), switchornot is a boolean
 # returns true if the chosen door is a winner
-def switch(doors, switch):
-    if switch:
+def switch(doors, switchornot):
+    if switchornot:
         return doors[1].isitawin()
     else:
         return doors[0].isitawin()
 
+# command-line args
 def parse_args(p):
     parser.add_argument('-s', '--switch', dest='switch', action='store_const',
                         const=True,
@@ -47,23 +49,24 @@ def parse_args(p):
 
 wins = 0
 losses = 0
-sw = True
+switchornot = True
 n = 3000
 parser = argparse.ArgumentParser(description='Simulates the Monty Hall Problem')
 args = parse_args(parser)
 
 if args.switch:
-    sw = True
+    switchornot = True
 elif args.noswitch:
-    sw = False
+    switchornot = False
 if args.tries:
     n = int(args.tries)
 
-for i in range(n):
+for _ in range(n):
     ds = [ Door(True), Door(False), Door(False) ]
-    if switch(pickadoor(ds), sw):
+    if switch(pickadoor(ds), switchornot):
         wins += 1
     else:
         losses += 1
+
 print("Wins: " + str(wins))
 print("Losses: " + str(losses))

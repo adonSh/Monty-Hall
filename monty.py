@@ -4,13 +4,6 @@ import argparse
 
 ###### DEFINITIONS ############
 
-# the doors could just be booleans but for now this preserves uniqueness
-class Door:
-    def __init__(self, win):
-        self._win = win
-    def isitawin(self):
-        return self._win
-
 # selects a door at random, removes a losing door, and
 # returns a tuple containing the choice and the remaining door
 def pickadoor(doors):
@@ -19,7 +12,7 @@ def pickadoor(doors):
     doors.remove(door)
 
     for d in doors:
-        if not d.isitawin():
+        if not d:
             doors.remove(d)
 
     return (door, doors[0])
@@ -28,11 +21,11 @@ def pickadoor(doors):
 # returns true if the chosen door is a winner
 def switch(doors, switchornot):
     if switchornot:
-        return doors[1].isitawin()
+        return doors[1]
     else:
-        return doors[0].isitawin()
+        return doors[0]
 
-# command-line args
+# process command-line args
 def parse_args(p):
     parser.add_argument('--switch', '-s', dest='switch', action='store_const',
                         const=True,
@@ -60,7 +53,7 @@ elif args.noswitch:
     switchornot = False
 
 for _ in range(int(args.tries)):
-    ds = [ Door(True), Door(False), Door(False) ]
+    ds = [ True, False, False ]
     if switch(pickadoor(ds), switchornot):
         wins += 1
     else:

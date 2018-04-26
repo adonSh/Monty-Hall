@@ -9,52 +9,43 @@ import argparse
 def pickadoor(doors):
     guess = random.randint(0, 2)
     door = doors[guess]
-    doors.remove(door)
 
-    for d in doors:
-        if not d:
-            doors.remove(d)
-
-    return (door, doors[0])
+    return (door, not door)
 
 # doors is a tuple (initial choice, other door), switchornot is a boolean
 # returns true if the chosen door is a winner
-def switch(doors, switchornot):
-    if switchornot:
+def switchornot(doors, switch):
+    if switch:
         return doors[1]
     else:
         return doors[0]
 
 # process command-line args
+# returns arguments object
 def parse_args(p):
-    parser.add_argument('--switch', '-s', dest='switch', action='store_const',
-                        const=True,
-                        help='switch after the first door is revealed')
-    parser.add_argument('--noswitch', '-ns', dest='noswitch',
-                        action='store_const', const=True,
-                        help='don\'t switch after the first door is revealed')
-    parser.add_argument('-n', '--tries', metavar='N', action='store',
+    p.add_argument('choice', choices=['stay', 'switch'],
+                   help='keep your initial choice or switch doors')
+    p.add_argument('-t', '--tries', metavar='TRIES', action='store',
                         default=3000, dest='tries',
                         help='how many times to run the simulation\
                         (default 3000)')
+    p.add_argument('-n', '--doors', metavar='DOORS', action='store',
+                   default=3, dest='doors',
+                   help='how many doors to use in the simulation (default 3)')
     return p.parse_args()
 
 ###### MAIN ############
+# TODO: implement n-doors
 
 wins = 0
 losses = 0
-switchornot = True
 parser = argparse.ArgumentParser(description='Simulates the Monty Hall Problem')
 args = parse_args(parser)
-
-if args.switch:
-    switchornot = True
-elif args.noswitch:
-    switchornot = False
+switch = True if args.choice == 'switch' else False
 
 for _ in range(int(args.tries)):
-    ds = [ True, False, False ]
-    if switch(pickadoor(ds), switchornot):
+    doors = (True, False, False)
+    if switchornot(pickadoor(doors), switch):
         wins += 1
     else:
         losses += 1

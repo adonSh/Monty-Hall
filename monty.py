@@ -37,7 +37,7 @@ def parse_args(p):
     parser.add_argument('--switch', '-s', dest='switch', action='store_const',
                         const=True,
                         help='switch after the first door is revealed')
-    parser.add_argument('--noswitch', 'ns', dest='noswitch',
+    parser.add_argument('--noswitch', '-ns', dest='noswitch',
                         action='store_const', const=True,
                         help='don\'t switch after the first door is revealed')
     parser.add_argument('-n', '--tries', metavar='N', action='store',

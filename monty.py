@@ -41,8 +41,9 @@ def parse_args(p):
                         action='store_const', const=True,
                         help='don\'t switch after the first door is revealed')
     parser.add_argument('-n', '--tries', metavar='N', action='store',
-                        dest='tries',
-                        help='how many times to run the simulation')
+                        default=3000, dest='tries',
+                        help='how many times to run the simulation\
+                        (default 3000)')
     return p.parse_args()
 
 ###### MAIN ############
@@ -50,7 +51,6 @@ def parse_args(p):
 wins = 0
 losses = 0
 switchornot = True
-n = 3000
 parser = argparse.ArgumentParser(description='Simulates the Monty Hall Problem')
 args = parse_args(parser)
 
@@ -58,10 +58,8 @@ if args.switch:
     switchornot = True
 elif args.noswitch:
     switchornot = False
-if args.tries:
-    n = int(args.tries)
 
-for _ in range(n):
+for _ in range(int(args.tries)):
     ds = [ Door(True), Door(False), Door(False) ]
     if switch(pickadoor(ds), switchornot):
         wins += 1

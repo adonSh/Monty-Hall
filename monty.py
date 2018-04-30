@@ -29,6 +29,7 @@ def parse_args(p):
     p.add_argument('-n', '--doors', metavar='DOORS', action='store',
                    default=3, dest='doors',
                    help='how many doors to use in the simulation (default 3)')
+
     return p.parse_args()
 
 ###### MAIN ############

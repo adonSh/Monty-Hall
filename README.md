@@ -5,7 +5,7 @@ doors is opened to reveal a goat. Do you change your selection or not?
 <https://en.wikipedia.org/wiki/Monty_Hall_problem>
 
 ```
-usage: monty.py [-h] [-t TRIES] [-n DOORS] {stay,switch}
+usage: monty.py [-h] [-t TRIES] {stay,switch}
 
 Simulates the Monty Hall Problem
 
@@ -16,6 +16,4 @@ optional arguments:
   -h, --help            show this help message and exit
   -t TRIES, --tries TRIES
                         how many times to run the simulation (default 3000)
-  -n DOORS, --doors DOORS
-                        how many doors to use in the simulation (default 3)
 ```

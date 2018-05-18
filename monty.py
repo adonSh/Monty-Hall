@@ -17,14 +17,11 @@ args = parse_args(parser)
 initdoors = (True, False, False)
 switch = True if args.choice == 'switch' else False
 wins = 0
-losses = 0
 
 for _ in range(int(args.tries)):
     initial = initdoors[random.randint(0, 2)]
     win = not initial if switch else initial
     if win:
         wins += 1
-    else:
-        losses += 1
 print('Wins:' + str(wins))
-print('Losses:' + str(losses))
+print('Losses:' + str(int(args.tries) - wins))

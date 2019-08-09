@@ -19,7 +19,7 @@ switch = True if args.choice == 'switch' else False
 wins = 0
 
 for i in range(int(args.tries)):
-    initial = initdoors[random.randint(0, 2)]
+    initial = random.choice(initdoors)
     win = not initial if switch else initial
     if win:
         wins += 1
